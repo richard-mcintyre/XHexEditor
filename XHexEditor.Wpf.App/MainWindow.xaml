@@ -1,0 +1,102 @@
+﻿<Window x:Class="XHexEditor.Wpf.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:editor="clr-namespace:XHexEditor.Wpf;assembly=XHexEditor.Wpf"
+        xmlns:convs="clr-namespace:XHexEditor.Wpf.App.Converters"
+        xmlns:local="clr-namespace:XHexEditor.Wpf.App"
+        xmlns:localization="clr-namespace:XHexEditor.Wpf.App.Properties"
+        mc:Ignorable="d"
+        FocusManager.FocusedElement="{Binding ElementName=editor}">
+
+    <Window.Title>
+        <MultiBinding Converter="{x:Static convs:ApplicationTitleConverter.Instance}">
+            <Binding Path="ApplicationTitle" />
+            <Binding Path="OpenedFileName" />
+            <Binding ElementName="editor" Path="IsModified" />
+        </MultiBinding>
+    </Window.Title>
+
+    <Window.CommandBindings>
+
+        <CommandBinding Command="{x:Static ApplicationCommands.New}"
+                        Executed="OnNew_Executed" />
+
+        <CommandBinding Command="{x:Static ApplicationCommands.Open}"
+                        Executed="OnOpen_Executed" />
+
+        <CommandBinding Command="{x:Static local:HexEditorAppCommands.OpenRecentItem}"
+                        Executed="OnOpenRecentItem_Executed" />
+
+        <CommandBinding Command="{x:Static ApplicationCommands.Close}"
+                        Executed="OnClose_Executed" />
+
+        <CommandBinding Command="{x:Static ApplicationCommands.Save}"
+                        Executed="OnSave_Executed" />
+
+        <CommandBinding Command="{x:Static ApplicationCommands.SaveAs}"
+                        Executed="OnSaveAs_Executed" />
+
+
+    </Window.CommandBindings>
+    
+    <DockPanel>
+
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="{x:Static localization:Resources.MenuItem_File}" SubmenuOpened="OnFileMenuItem_Opened">
+                <MenuItem Header="{x:Static localization:Resources.MenuItem_New}" Command="{x:Static ApplicationCommands.New}" />
+                <MenuItem Header="{x:Static localization:Resources.MenuItem_Open}" Command="{x:Static ApplicationCommands.Open}" />
+                <Separator />
+                <MenuItem Header="{x:Static localization:Resources.MenuItem_Save}" Command="{x:Static ApplicationCommands.Save}" />
+                <MenuItem Header="{x:Static localization:Resources.MenuItem_SaveAs}" Command="{x:Static ApplicationCommands.SaveAs}" />
+                <Separator />
+                <MenuItem Command="{x:Static local:HexEditorAppCommands.OpenRecentItem}" />
+                <MenuItem Command="{x:Static local:HexEditorAppCommands.OpenRecentItem}" />
+                <MenuItem Command="{x:Static local:HexEditorAppCommands.OpenRecentItem}" />
+                <MenuItem Command="{x:Static local:HexEditorAppCommands.OpenRecentItem}" />
+                <Separator x:Name="recentItemsMenuSeparator" />
+                <MenuItem Header="{x:Static localization:Resources.MenuItem_Exit}" Command="{x:Static ApplicationCommands.Close}" />
+            </MenuItem>
+
+            <MenuItem Header="{x:Static localization:Resources.MenuItem_Edit}">
+                <MenuItem Command="{x:Static editor:HexEditorCommands.RemoveAllHighlights}" />
+                <MenuItem Command="{x:Static editor:HexEditorCommands.HighlightSelection}" />
+                <Separator />
+                <MenuItem Command="{x:Static editor:HexEditorCommands.ToggleBookmark}" />
+                <MenuItem Command="{x:Static editor:HexEditorCommands.PreviousBookmark}" />
+                <MenuItem Command="{x:Static editor:HexEditorCommands.NextBookmark}" />
+            </MenuItem>
+
+            <MenuItem Header="{x:Static localization:Resources.MenuItem_View}">
+                <MenuItem Command="{x:Static editor:HexEditorCommands.Zoom50Percent}" />
+                <MenuItem Command="{x:Static editor:HexEditorCommands.Zoom100Percent}" />
+                <MenuItem Command="{x:Static editor:HexEditorCommands.Zoom150Percent}" />
+                <MenuItem Command="{x:Static editor:HexEditorCommands.Zoom200Percent}" />
+            </MenuItem>
+        </Menu>
+
+        <StatusBar DockPanel.Dock="Bottom">
+           
+            <StatusBarItem DockPanel.Dock="Right">
+                <TextBlock Text="{Binding ElementName=editor, Path=CaretMode, Converter={x:Static convs:CaretModeToTextConverter.Instance}}" />
+            </StatusBarItem>
+
+            <Separator DockPanel.Dock="Right" />
+
+            <StatusBarItem DockPanel.Dock="Right">
+                <TextBlock Text="{Binding ElementName=editor, Path=Zoom, Converter={x:Static convs:ZoomLevelToTextConverter.Instance}}" />
+            </StatusBarItem>
+
+            <StatusBarItem>
+                <TextBlock Text="{Binding ElementName=editor, Path=CaretByteIndex, Mode=OneWay,
+                    Converter={x:Static convs:CaretByteIndexToTextConverter.Instance}}" />
+            </StatusBarItem>
+
+        </StatusBar>
+
+        <editor:HexEditor x:Name="editor" />
+        
+    </DockPanel>
+    
+</Window>

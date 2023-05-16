@@ -1,0 +1,97 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:XHexEditor.Wpf"
+                    xmlns:ctrl="clr-namespace:XHexEditor.Wpf"
+                    xmlns:localization="clr-namespace:XHexEditor.Wpf.Properties">
+
+    <local:DefaultHighlightBrushCollection x:Key="HighlightBrushesKey">
+        <SolidColorBrush Color="#FBF8CC" />
+        <SolidColorBrush Color="#FDE4CF" />
+        <SolidColorBrush Color="#FFCFD2" />
+        <SolidColorBrush Color="#F1C0E8" />
+        <SolidColorBrush Color="#CFBAF0" />
+        <SolidColorBrush Color="#A3C4F3" />
+        <SolidColorBrush Color="#90DBF4" />
+        <SolidColorBrush Color="#8EECF5" />
+        <SolidColorBrush Color="#98F5E1" />
+        <SolidColorBrush Color="#B9FBC0" />
+
+        <!--
+        <SolidColorBrush Color="#FFADAD" />
+        <SolidColorBrush Color="#FFD6A5" />
+        <SolidColorBrush Color="#FDFFB6" />
+        <SolidColorBrush Color="#CAFFBF" />
+        <SolidColorBrush Color="#9BF6FF" />
+        <SolidColorBrush Color="#A0C4FF" />
+        <SolidColorBrush Color="#BDB2FF" />
+        <SolidColorBrush Color="#FFC6FF" /> -->
+    </local:DefaultHighlightBrushCollection>
+
+
+    <Style TargetType="{x:Type ctrl:HexEditor}">
+        
+        <Setter Property="FocusVisualStyle" Value="{x:Null}" />
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="FontSize" Value="10" />
+
+        <Setter Property="HighlightBrushes" Value="{StaticResource HighlightBrushesKey}" />
+
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ctrl:HexEditor}">
+
+                    <ScrollViewer CanContentScroll="True"
+                                  VerticalScrollBarVisibility="Auto">
+
+                        <ctrl:HexEditorInternal x:Name="PART_Editor"
+                                                Provider="{TemplateBinding Provider}"
+                                                HighlightBrushes="{TemplateBinding HighlightBrushes}"
+                                                HighlightRanges="{TemplateBinding HighlightRanges}"
+                                                FontSize="{Binding Path=FontSize, RelativeSource={RelativeSource TemplatedParent}}"
+                                                SelectedRange="{Binding Path=SelectedRange, RelativeSource={RelativeSource TemplatedParent}}"
+                                                CaretMode="{Binding Path=CaretMode, RelativeSource={RelativeSource TemplatedParent}}"
+                                                Zoom="{Binding Path=Zoom, RelativeSource={RelativeSource TemplatedParent}}"
+                                                Bookmarks="{TemplateBinding Bookmarks}"
+                                                Focusable="True"
+                                                FocusVisualStyle="{x:Null}"
+                                                />
+
+                    </ScrollViewer>
+                    
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+
+    <Style TargetType="{x:Type ctrl:HexEditorInternal}">
+        <Setter Property="ContextMenu">
+            <Setter.Value>
+                <ContextMenu>
+                   
+                    <MenuItem Command="{x:Static ctrl:HexEditorCommands.ToggleBookmark}" />
+                    <MenuItem Command="{x:Static ctrl:HexEditorCommands.PreviousBookmark}" />
+                    <MenuItem Command="{x:Static ctrl:HexEditorCommands.NextBookmark}" />
+                    
+                    <Separator />
+                    
+                    <MenuItem Command="{x:Static ctrl:HexEditorCommands.RemoveAllHighlights}" />
+                    <MenuItem Command="{x:Static ctrl:HexEditorCommands.RemoveHighlight}" />
+                    <MenuItem Header="{x:Static localization:Resources.MenuItem_Highlight}" Command="{x:Static ctrl:HexEditorCommands.HighlightSelection}" />
+
+                    <Separator />
+
+                    <MenuItem Header="{x:Static localization:Resources.MenuItem_Zoom}">
+                        <MenuItem Command="{x:Static ctrl:HexEditorCommands.Zoom50Percent}" />
+                        <MenuItem Command="{x:Static ctrl:HexEditorCommands.Zoom100Percent}" />
+                        <MenuItem Command="{x:Static ctrl:HexEditorCommands.Zoom150Percent}" />
+                        <MenuItem Command="{x:Static ctrl:HexEditorCommands.Zoom200Percent}" />
+                    </MenuItem>
+
+                </ContextMenu>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

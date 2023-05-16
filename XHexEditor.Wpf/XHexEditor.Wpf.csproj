@@ -1,0 +1,45 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net7.0-windows</TargetFramework>
+		<Nullable>enable</Nullable>
+		<UseWPF>true</UseWPF>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\XHexEditor.Providers\XHexEditor.Providers.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
+			<_Parameter1>XHexEditor.Providers.Tests</_Parameter1>
+		</AssemblyAttribute>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Compile Update="Properties\Resources.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>Resources.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <EmbeddedResource Update="Properties\Resources.resx">
+	    <Generator>PublicResXFileCodeGenerator</Generator>
+	    <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Update="Themes\Generic.xaml">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	    <Generator>XamlIntelliSenseFileGenerator</Generator>
+	  </Page>
+	  <Page Update="Themes\Generic_XHexEditor.xaml">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+	    <Generator>XamlIntelliSenseFileGenerator</Generator>
+	  </Page>
+	</ItemGroup>
+
+</Project>

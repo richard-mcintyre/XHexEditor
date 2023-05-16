@@ -1,0 +1,46 @@
+﻿<local:DialogBase x:Class="XHexEditor.Wpf.App.Dialogs.NewDlg"
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  xmlns:app="clr-namespace:XHexEditor.Wpf.App"
+                  xmlns:local="clr-namespace:XHexEditor.Wpf.App.Dialogs"
+                  mc:Ignorable="d"
+                  FocusManager.FocusedElement="{Binding ElementName=rdoEmpty}"
+                  Title="New" SizeToContent="WidthAndHeight">
+    
+    <StackPanel>
+
+        <GroupBox Header="Initial Size" BorderBrush="#aaaaaa">
+
+            <StackPanel Margin="{app:Margin Kind=InsideContainer}">
+                
+                <RadioButton Content="Empty" x:Name="rdoEmpty"
+                             IsChecked="{Binding IsSizeEmpty}" />
+
+                <RadioButton Content="1,024 bytes (1 KB)"
+                             Margin="{app:Margin Kind=BetweenRadioButtons}" 
+                             IsChecked="{Binding IsSizeOneKilobyte}" />
+
+                <RadioButton Content="1,048,576 bytes (1 MB)"
+                             Margin="{app:Margin Kind=BetweenRadioButtons}" 
+                             IsChecked="{Binding IsSizeOneMegabyte}" />
+
+                <RadioButton Content="1,073,741,824 bytes (1 GB)"
+                             Margin="{app:Margin Kind=BetweenRadioButtons}" 
+                             IsChecked="{Binding IsSizeOneGigabyte}" />
+
+                <RadioButton Content="4,294,967,296 bytes (4 GB)"
+                             Margin="{app:Margin Kind=BetweenRadioButtons}" 
+                             IsChecked="{Binding IsSizeFourGigabytes}" />
+
+                <RadioButton Content="8,589,934,592 bytes (8 GB)"
+                             Margin="{app:Margin Kind=BetweenRadioButtons}" 
+                             IsChecked="{Binding IsSizeEightGigabytes}" />
+
+            </StackPanel>
+
+        </GroupBox>
+        
+    </StackPanel>
+</local:DialogBase>
