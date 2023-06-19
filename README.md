@@ -68,4 +68,8 @@ if (editor.IsModified)
 }
 ```
 
-> :information_source: ProgressDialog is from https://github.com/richard-mcintyre/XTaskDialog
+> :information_source: **ProgressDialog** is from https://github.com/richard-mcintyre/XTaskDialog
+
+## Example Application
+
+This repository contains an example application using the hex editor control using the project `XHexEditor.Wpf.App\XHexEditor.Wpf.App.csproj`.
